@@ -1,0 +1,24 @@
+#lang racket
+;; Frederik Roenn Stensaeth
+;; 04.02.2015
+;; A program that defines the keep-first-n and sum functions as
+;; described in the CS215: Racket Introductory Lab.
+
+;; A recursive function that keeps the first 'n' elements of a list.
+(define keep-first-n
+  (lambda (n L)
+    ;; Compare the size of n to the length of the list.
+    (cond [(< n 0) "Invalid n"] ;; too small n
+          [(>= n (length L)) L] ;; too big n
+          ;; Call keep-first-n on the list without the last element.
+          [else (keep-first-n n (reverse (cdr (reverse L))))])))
+
+;; A recursive function that sums the elements in a list.
+;; Returns 0 is the list is empty.
+(define sum
+  (lambda (L)
+    ;; If list is empty return 0 or return the element in a single entry list. 
+    (cond [(= (length L) 0) "Invalid list."]
+          [(= (length L) 1) (car L)]
+          ;; Find the sum of the first number in the list and and the remaining of the list.
+          [else (+ (sum (cdr L)) (car L))])))
